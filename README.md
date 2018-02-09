@@ -1,2 +1,2 @@
-# jero2760.github.io
-Openbooks
+# Openbooks
+Open books repository
