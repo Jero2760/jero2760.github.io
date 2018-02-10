@@ -7,6 +7,7 @@
 </head>
 <body>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
       var viewer = null;
       google.load("books", "0");
@@ -18,7 +19,7 @@
       function initialize() {
         var viewerCanvas = document.getElementById('viewerCanvas');
         viewer = new google.books.DefaultViewer(viewerCanvas);
-        viewer.load('qg42bnQtz74C', viewerLoadFail, viewerLoadSuccess);
+        viewer.load('qg42bnQtz74C', viewerLoadFail, removePreviewFooter, viewerLoadSuccess);
       }
 
       /* Called if the book could not load successfully
@@ -32,7 +33,14 @@
        */
       function viewerLoadSuccess() {
         if (!viewer) return;
-        viewer.goToPage(1);
+        viewer.goToPage(0);
+      }
+      /* Para eliminar el pie de comprar libro, etc. se hace con la función siguiente. 
+      Para evitar el error Can't find variable: $ hay que poner la línea de ajax.googleapis.com antes del script JS
+       */
+      function removePreviewFooter()
+      {
+        $('#viewerCanvas > div > div:nth-child(2)').css('display','none');
       }
 
       /* Load the book as soon as the Google AJAX API is ready
